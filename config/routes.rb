@@ -3,4 +3,7 @@ Rails.application.routes.draw do
 
   resources :departments, only: [:index]
   # get "/departments", to: "departments#index"
+
+  resources :employees, only: [:show]
+  # get "/employees/:id", to: "employees#show"
 end
