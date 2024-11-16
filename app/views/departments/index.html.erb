@@ -3,5 +3,8 @@
     <div id="department_<%= department.id %>">
         <h3>Department: <%= department.name %></h3>
         <p>Floor: <%= department.floor %></p>
+        <p>Employee(s): <% department.employees.each do |employee| %>
+            <%= employee.name %></p>
+        <% end %>
     </div>
 <% end %>
