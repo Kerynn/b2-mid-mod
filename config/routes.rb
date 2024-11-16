@@ -6,4 +6,7 @@ Rails.application.routes.draw do
 
   resources :employees, only: [:show]
   # get "/employees/:id", to: "employees#show"
+
+  # resources :tickets, only: [:create]
+  post "/employees/:id/tickets", to: "employee_tickets#create"
 end

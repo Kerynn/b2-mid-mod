@@ -13,3 +13,9 @@
 <div id="oldest_ticket">
     <h3>Oldest Ticket: <%= @employee.oldest_ticket.subject %></h3>
 </div>
+
+<%= form_with url: "/employees/#{@employee.id}/tickets", method: :post, local: true do |form| %>
+    <%= form.label :ticket_id %>
+    <%= form.text_field :ticket_id %>
+    <%= form.submit "Add Ticket to Employee" %>
+<% end %>
