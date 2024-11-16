@@ -19,3 +19,8 @@
     <%= form.text_field :ticket_id %>
     <%= form.submit "Add Ticket to Employee" %>
 <% end %>
+
+<div id="shared_tickets">
+    <h3>Shared Tickets List: <%= @employee.shared_tickets %></h3>
+    <%# <%= list.flatten.uniq.join(', ') %> 
+</div>

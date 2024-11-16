@@ -64,4 +64,37 @@ RSpec.describe "the Employee show page" do
     expect(current_path).to eq("/employees/#{@dave.id}")
     expect(page).to have_content(@ticket5.subject)
   end
+
+  xit "shows a unique list of employees who share tickets" do 
+    technology_department = Department.create!(name: "Technology", floor: "ground floor")
+    dee = technology_department.employees.create!(name: "Dee", level: 4)
+    samantha = technology_department.employees.create!(name: "Samantha", level: 9)
+    EmployeeTicket.create!(employee_id: @dave.id, ticket_id: @ticket2.id)
+    EmployeeTicket.create!(employee_id: samantha.id, ticket_id: @ticket2.id)
+    EmployeeTicket.create!(employee_id: samantha.id, ticket_id: @ticket4.id)
+    EmployeeTicket.create!(employee_id: dee.id, ticket_id: @ticket1.id)
+    
+    # samantha, dave, and jim share ticket 2
+    # samantha and dave share ticket 4, but samantha should only appear once on list
+    # jim and dee share ticket 1
+
+    visit "/employees/#{@dave.id}"
+
+    within "#shared_tickets" do
+      expect(page).to have_content("Shared Tickets List")
+      expect(page).to have_content(samantha.name) # how to show only shows up once? 
+      expect(page).to have_content(@jim.name)
+      expect(page).to_not have_content(dee.name)
+      # expect(page).to_not have_content(dave.name)
+    end
+
+    visit "/employees/#{@jim.id}"
+
+    within "#shared_tickets" do
+      expect(page).to have_content("Shared Tickets List")
+      expect(page).to have_content(dee.name)
+      expect(page).to_not have_content(@dave.name)
+      expect(page).to_not have_content(samantha.name)
+    end
+  end
 end

@@ -10,4 +10,9 @@ class Employee < ApplicationRecord
   def oldest_ticket
     sort_tickets.first
   end
+
+  def shared_tickets
+    # ticket_ids = tickets.pluck(:id)
+    
+  end
 end
